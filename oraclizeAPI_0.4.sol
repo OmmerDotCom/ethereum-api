@@ -937,7 +937,7 @@ contract usingOraclize {
     }
 
     function oraclize_newRandomDSQuery(uint _delay, uint _nbytes, uint _customGasLimit) internal returns (bytes32){
-        if ((_nbytes == 0)||(_nbytes > 32)) throw;
+        if ((_nbytes == 0)||(_nbytes > 32)) revert();
 	// Convert from seconds to ledger timer ticks
         _delay *= 10;
         bytes memory nbytes = new bytes(1);
@@ -1053,10 +1053,10 @@ contract usingOraclize {
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
         // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
-        if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
+        if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) revert();
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
-        if (proofVerified == false) throw;
+        if (proofVerified == false) revert();
 
         _;
     }
@@ -1074,7 +1074,7 @@ contract usingOraclize {
     function matchBytes32Prefix(bytes32 content, bytes prefix, uint n_random_bytes) internal pure returns (bool){
         bool match_ = true;
 
-	if (prefix.length != n_random_bytes) throw;
+	if (prefix.length != n_random_bytes) revert();
 
         for (uint256 i=0; i< n_random_bytes; i++) {
             if (content[i] != prefix[i]) match_ = false;
@@ -1132,7 +1132,7 @@ contract usingOraclize {
 
         if (to.length < minLength) {
             // Buffer too small
-            throw; // Should be a better way?
+            revert(); // Should be a better way?
         }
 
         // NOTE: the offset 32 is added to skip the `size` field of both bytes variables
