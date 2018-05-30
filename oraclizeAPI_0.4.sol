@@ -85,7 +85,7 @@ library Buffer {
         uint capacity;
     }
 
-    function init(buffer memory buf, uint capacity) internal pure constant {
+    function init(buffer memory buf, uint capacity) internal pure {
         if(capacity % 32 != 0) capacity += 32 - (capacity % 32);
         // Allocate space for the buffer data
         buf.capacity = capacity;
@@ -102,7 +102,7 @@ library Buffer {
         append(buf, oldbuf);
     }
 
-    function max(uint a, uint b) private pure constant returns(uint) {
+    function max(uint a, uint b) private pure returns(uint) {
         if(a > b) {
             return a;
         }
