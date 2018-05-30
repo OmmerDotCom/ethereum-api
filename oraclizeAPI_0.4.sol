@@ -85,7 +85,7 @@ library Buffer {
         uint capacity;
     }
 
-    function init(buffer memory buf, uint capacity) internal constant {
+    function init(buffer memory buf, uint capacity) internal pure constant {
         if(capacity % 32 != 0) capacity += 32 - (capacity % 32);
         // Allocate space for the buffer data
         buf.capacity = capacity;
@@ -102,7 +102,7 @@ library Buffer {
         append(buf, oldbuf);
     }
 
-    function max(uint a, uint b) private constant returns(uint) {
+    function max(uint a, uint b) private pure constant returns(uint) {
         if(a > b) {
             return a;
         }
@@ -220,7 +220,7 @@ library CBOR {
     uint8 private constant MAJOR_TYPE_MAP = 5;
     uint8 private constant MAJOR_TYPE_CONTENT_FREE = 7;
 
-    function shl8(uint8 x, uint8 y) private constant returns (uint8) {
+    function shl8(uint8 x, uint8 y) private pure constant returns (uint8) {
         return x * (2 ** y);
     }
 
@@ -358,7 +358,7 @@ contract usingOraclize {
     function __callback(bytes32 myid, string result) {
         __callback(myid, result, new bytes(0));
     }
-    function __callback(bytes32 myid, string result, bytes proof) {
+    function __callback(bytes32 myid, string result, bytes proof) pure {
     }
 
     function oraclize_useCoupon(string code) oraclizeAPI internal {
@@ -769,7 +769,7 @@ contract usingOraclize {
         }
     }
 
-    function parseAddr(string _a) internal returns (address){
+    function parseAddr(string _a) internal pure returns (address){
         bytes memory tmp = bytes(_a);
         uint160 iaddr = 0;
         uint160 b1;
@@ -789,7 +789,7 @@ contract usingOraclize {
         return address(iaddr);
     }
 
-    function strCompare(string _a, string _b) internal returns (int) {
+    function strCompare(string _a, string _b) internal pure returns (int) {
         bytes memory a = bytes(_a);
         bytes memory b = bytes(_b);
         uint minLength = a.length;
@@ -807,7 +807,7 @@ contract usingOraclize {
             return 0;
     }
 
-    function indexOf(string _haystack, string _needle) internal returns (int) {
+    function indexOf(string _haystack, string _needle) internal pure returns (int) {
         bytes memory h = bytes(_haystack);
         bytes memory n = bytes(_needle);
         if(h.length < 1 || n.length < 1 || (n.length > h.length))
@@ -834,7 +834,7 @@ contract usingOraclize {
         }
     }
 
-    function strConcat(string _a, string _b, string _c, string _d, string _e) internal returns (string) {
+    function strConcat(string _a, string _b, string _c, string _d, string _e) internal pure returns (string) {
         bytes memory _ba = bytes(_a);
         bytes memory _bb = bytes(_b);
         bytes memory _bc = bytes(_c);
@@ -869,7 +869,7 @@ contract usingOraclize {
     }
 
     // parseInt(parseFloat*10^_b)
-    function parseInt(string _a, uint _b) internal returns (uint) {
+    function parseInt(string _a, uint _b) internal pure returns (uint) {
         bytes memory bresult = bytes(_a);
         uint mint = 0;
         bool decimals = false;
@@ -887,7 +887,7 @@ contract usingOraclize {
         return mint;
     }
 
-    function uint2str(uint i) internal returns (string){
+    function uint2str(uint i) internal pure returns (string){
         if (i == 0) return "0";
         uint j = i;
         uint len;
@@ -932,7 +932,7 @@ contract usingOraclize {
         oraclize_network_name = _network_name;
     }
 
-    function oraclize_getNetworkName() internal returns (string) {
+    function oraclize_getNetworkName() internal view returns (string) {
         return oraclize_network_name;
     }
 
@@ -1071,7 +1071,7 @@ contract usingOraclize {
         return 0;
     }
 
-    function matchBytes32Prefix(bytes32 content, bytes prefix, uint n_random_bytes) internal returns (bool){
+    function matchBytes32Prefix(bytes32 content, bytes prefix, uint n_random_bytes) internal pure returns (bool){
         bool match_ = true;
 
 	if (prefix.length != n_random_bytes) throw;
@@ -1127,7 +1127,7 @@ contract usingOraclize {
 
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    function copyBytes(bytes from, uint fromOffset, uint length, bytes to, uint toOffset) internal returns (bytes) {
+    function copyBytes(bytes from, uint fromOffset, uint length, bytes to, uint toOffset) internal pure returns (bytes) {
         uint minLength = length + toOffset;
 
         if (to.length < minLength) {
