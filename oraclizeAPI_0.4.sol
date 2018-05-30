@@ -220,7 +220,7 @@ library CBOR {
     uint8 private constant MAJOR_TYPE_MAP = 5;
     uint8 private constant MAJOR_TYPE_CONTENT_FREE = 7;
 
-    function shl8(uint8 x, uint8 y) private pure constant returns (uint8) {
+    function shl8(uint8 x, uint8 y) private pure returns (uint8) {
         return x * (2 ** y);
     }
 
