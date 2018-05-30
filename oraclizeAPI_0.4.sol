@@ -355,7 +355,7 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 myid, string result) public {
+    function __callback(bytes32 myid, string result) public pure {
         __callback(myid, result, new bytes(0));
     }
     function __callback(bytes32 myid, string result, bytes proof) public pure {
@@ -851,11 +851,11 @@ contract usingOraclize {
         return string(babcde);
     }
 
-    function strConcat(string _a, string _b, string _c, string _d) internal returns (string) {
+    function strConcat(string _a, string _b, string _c, string _d) internal pure returns (string) {
         return strConcat(_a, _b, _c, _d, "");
     }
 
-    function strConcat(string _a, string _b, string _c) internal returns (string) {
+    function strConcat(string _a, string _b, string _c) internal pure returns (string) {
         return strConcat(_a, _b, _c, "", "");
     }
 
@@ -864,7 +864,7 @@ contract usingOraclize {
     }
 
     // parseInt
-    function parseInt(string _a) internal returns (uint) {
+    function parseInt(string _a) internal pure returns (uint) {
         return parseInt(_a, 0);
     }
 
